@@ -1,15 +1,41 @@
 package com.epam.rd.autotasks;
-
+import java.util.*;
 public class DecrementingCarousel {
-    public DecrementingCarousel(int capacity) {
 
+    private final int[] container;
+    private byte flagRun = 0;
+    private int i = 0;
+    private final int capacity;
+
+    public DecrementingCarousel(int capacity) {
+        if (capacity <= 0 ) {
+            throw new IllegalArgumentException();
+        }
+        this.capacity = capacity;
+        container = new int[capacity];
     }
 
     public boolean addElement(int element){
-        throw new UnsupportedOperationException();
+        if (flagRun == 1) {         
+            return false;
+        }
+        if (element <= 0) {         
+            return false;
+        }
+        if (i >= capacity) {        
+            return false;
+        }
+        container[i] = element;   
+        i++;
+        return true;
     }
 
     public CarouselRun run(){
-       throw new UnsupportedOperationException();
+        if (flagRun == 1) {
+            return null;
+        }
+        flagRun = 1;
+        return new CarouselRun(container, i);
+
     }
 }
